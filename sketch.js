@@ -12,41 +12,44 @@ function preload()
 {
   dogimg1 = loadImage("images/dogImg.png")
   dogimg2 = loadImage("images/dogImg1.png")
-	//load images here
+
 }
 
 function setup() {
-	createCanvas(700, 500);
+  createCanvas(700, 500);
+  
   database = firebase.database();
   console.log(database);
  
-  foodobject=new Food()
+  foodobject=new Food();
+
   dog = createSprite(550,250,10,10);
-  dog.addImage(dogimg1)
-  dog.scale=0.2
+  dog.addImage(dogimg1);
+  dog.scale = 0.2;
  
-  var dogo = database.ref('Food');
-  dogo.on("value", readPosition, showError);
-  feed = createButton("FEED DOG")
-  feed.position(500,15)
-  feed.mousePressed(FeedDog)
-  add = createButton("ADD FOOD")
-  add.position(400,15)
-  add.mousePressed(AddFood)
+  var foodInfoRef = database.ref('Food');
+  foodInfoRef.on("value", readPosition, showError);
+
+  feed = createButton("FEED DOG");
+  feed.position(600,100);
+  feed.mousePressed(FeedDog);
+
+  add = createButton("ADD FOOD");
+  add.position(700,100);
+  add.mousePressed(AddFood);
 
 } 
 
 function draw(){
+
  background(46,139,87);
 
- foodobject.display()
+ foodobject.display();
  
  drawSprites();
-  
  fill(255,255,254);
  textSize(15);
 
-drawSprites();
 }
 function readPosition(data){
   position = data.val();
